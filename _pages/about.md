@@ -4,26 +4,16 @@ title: About
 permalink: /about/
 ---
 
-[Reverie](https://github.com/amitmerchant1990/reverie) is a Jekyll theme which is simple and opinionated. It's actually a fork of [jekyll-now](https://github.com/barryclark/jekyll-now) with some additional features and personal touches which I've implemented to suit my needs for [my blog](https://www.amitmerchant.com).
+Welcome!
 
-Yuuuuupup
+Thanks for stopping by. This site is a collection of some of my favorite personal projects — hands-on builds, technical explorations, and creative ventures. Each one represents a piece of my journey as a curious and collaborative learner, always looking for new ways to stretch my understanding of how things work and why.
 
-## Features
+Feel free to look around, and if something sparks your interest, I’d love to hear from you.
 
-- Command-line free fork-first workflow, using GitHub.com to create, customize and post to your blog
-- Fully responsive and mobile optimized base theme
-- Sass/Coffeescript support using Jekyll 2.0
-- Free hosting on your GitHub Pages user site
-- All the SEO goodies comes in-built
-- Markdown blogging
-- Syntax highlighting using Pygments
-    - [Dracula syntax theme](https://draculatheme.com/) included
-- Disqus commenting
-- Google Analytics integration
-- Fuzzy search across blog posts
-- Pagination of posts works out-of-the-box.
-- Categorize posts out-of-the box
-- RSS Feed
-- In-built sitemap
+## A Bit About Me
 
-Learn more about it [here](https://github.com/amitmerchant1990/reverie) on how to get started.
+I grew up in Kirkland, Washington, and moved to Irvine, California to study electrical engineering at UC Irvine. Outside of school, I spend time hiking, making music, tinkering with electronics, and connecting with people who share a love of building and discovery.
+
+At the core of everything I do is a curiosity and a drive to understand; to explore the details behind the things I love and the world they shape. My hope is that, one day, these interests will evolve into work that helps solve meaningful problems and makes a real difference in people’s lives.
+
+For the time being, I've created this website as a living archive of my exploration towards those goals.
