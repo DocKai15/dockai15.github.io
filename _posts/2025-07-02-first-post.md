@@ -69,3 +69,7 @@ categories: [Miscellaneous, Code]
 Meanwhile, the "post" layout file contains all the information needed to format each post in HTML.
 
 Since Jekyll runs entirely from local files, I can use it to compile my site in a local environment. While this local server is running, Jekyll watches for file changes and automatically updates the site in my browser — letting me preview edits live as I make them.
+
+Finally, I can commit my changes and push them to my online Github repository and Github Pages will do the rest of the work for me.
+
+This project was a lot of fun. While I certainly chose an easy route with many guard rails and much of the work done for me, I still feel like I've gained a valuable understanding of static sites and what goes into a website. I hope you enjoyed reading! Thanks.
