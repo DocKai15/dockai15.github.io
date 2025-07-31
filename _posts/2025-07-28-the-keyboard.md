@@ -3,7 +3,7 @@ layout: post
 title: How I Built My Ergonomic Mechanical Keyboard From Scratch
 categories: [Electrical Engineering, Code]
 ---
-<img src="/images/full-board.png" alt="splitty!">
+<img src="/images/full-board.JPG" alt="splitty!">
 
 Hello! In this post I want to detail my first ever complete electrical engineering project from scratch, my ergonomic mechanical keyboard, nicknamed splitty.
 
@@ -75,7 +75,7 @@ It's very easy to build each component of the keyboard separately without ever c
 
 The parts I designed would've made for great 3d printing practice but unfortunately I do not have access to one. This meant two things for me: I needed to order them using online services, and they needed to be *perfect*. I did as much simulation and iteration as I could on my design before ordering my parts from [SendCutSend](https://sendcutsend.com/?srsltid=AfmBOoqlO94FP7pZe-f5gklTzPy-zCSYgoJpp9qH5sLmD3wqT4UM_TGb) and [JLCPCB](https://jlcpcb.com/). I sourced the other parts (Keycaps, switches, buttons, etc.) online. There was no one-stop-shop for everything, but I recommend [typeractive](https://typeractive.xyz/) especially for split keyboards.
 
-<img src="/images/parts.png" alt="The case, PCB, and plate">
+<img src="/images/parts.JPG" alt="The case, PCB, and plate">
 
 The case is resin and the plate is aluminum (1mm thick, although kailh switches prefer 1.2mm plate thickness)
 
@@ -194,7 +194,7 @@ When I push these changes to Github, they are automatically compiled using Githu
 
 ## Reflection and Outro
 
-<img src="/images/right-board.png" alt="splitty!">
+<img src="/images/right-board.JPG" alt="splitty!">
 
 After about a week of adjusting to my new keyboard, I am ecstatic. It's exactly what I imagined: quick, sleek, ergonomic, and most of all, unique. I love building functional projects like these and I learned a lot in this process. That being said, there are a few things I'd include in a splittyv2 project:
 
