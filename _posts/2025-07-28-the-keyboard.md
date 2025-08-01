@@ -9,20 +9,20 @@ Hello! In this post I want to detail my first ever complete electrical engineeri
 
 ## Why?
 
-I decided to build an ergonomic mechanical keyboard for several key reasons. First of all, it's a great place to begin learning concepts like PCB, CAD, and firmware design. A build from scratch uses all three skills without requiring a high level of expertise. Second, I believe ergonomic design allows engineers to dispel limiting design conventions in search of better, more creative solutions. Especially within the world of computer accessories, many designs (mice, keyboards, etc.) are built a certain way simply because they satisfy our image of what a "keyboard" or "mouse" ought to be.
+I chose to build an ergonomic mechanical keyboard for a few reasons. First, it’s a great way to learn fundamental concepts like PCB design, CAD, and firmware. From start to finish, you get hands-on experience in all three areas without needing deep expertise. Second, many computer accessories (like mice and keyboards) follow design conventions simply because it’s what we’re used to. Going ergonomic is an opportunity to break those habits and explore better, more creative solutions.
 
 ## How?
 
-In order to explain the process of building a mechanical keyboard, I must first go over its necessary parts. Please note that the image below is just the left half of splitty, my keyboard.
+To explain my build process, I must first go over the main components. The image below is just the left half of splitty.
 
 <img src="/images/exploded-design.png" alt="An exploded version of my keyboard design">
 
-1. The PCB: Acts like the skeleton of the keyboard-- It provides a physical base and all the necessary connections for each component.
-2. The Microcontroller: Acts like the brain of the keyboard-- It receives, processes, and sends all signals to the computer.
+1. The PCB: The skeleton of the keyboard: It provides a physical base and all the necessary connections for each component.
+2. The Microcontroller: The brain of the keyboard: It receives, processes, and sends all signals to the computer.
 3. The Case and Plate: Provide a home for the working components of the keyboard. The case houses the PCB while the plate holds each switch in place.
-4. Switches and Keycaps: Provide the literal means of typing and a major component of the keyboard's aesthetic.
+4. Switches and Keycaps: Provide the interface and a major component of the keyboard's aesthetic.
 
-These key components allow for the simplest possible keyboard functionality. However, there are some features I'd like to include that require some extra thought:
+These key components allow for simple keyboard functionality. However, there are some features I'd like to include that require some extra thought:
 
 - Fully Wireless: Requires a microcontroller with bluetooth functionality and a battery. Also requires a firmware that can handle bluetooth communication.
 - Split Keyboard: Requires mirrored PCBs, plates, cases and two microcontrollers/batteries.
@@ -30,28 +30,28 @@ These key components allow for the simplest possible keyboard functionality. How
 - No Stagger: Most keyboards "stagger" their rows. For the ergonomics of my board, I want to remove this stagger and instead rotate and tent the entire keyboard.
 - Low Profile: I want my keyboard to be short like a laptop keyboard. Low-profile switches and keycaps allow me to remain as short and sleek as possible.
 
-While most of these considerations can be engineered in with a little effort, some of them require extra/unique parts: (A full BOM can be found [here](https://www.notion.so/2192c9306a1480eb9d15f3172433599d?v=2192c9306a14815d9968000c7686ca12&source=copy_link) )
+Some of these features require extra/unique parts: (A full BOM can be found [here](https://www.notion.so/2192c9306a1480eb9d15f3172433599d?v=2192c9306a14815d9968000c7686ca12&source=copy_link) )
 
-- The Supermini nrf52840, a microcontroller with bluetooth and LiPo battery charging capabilities.
+- Supermini nrf52840, a microcontroller with bluetooth and LiPo battery charging capabilities.
 - Kailh Choc Brown switches for a low-profile tactile feel.
 - Power switches for on/off and reset buttons.
 - 3.7V LiPo batteries.
 
 ### Part 1: The PCB
 
-The PCB provides the connections between the microcontroller, the keyswitches, and any other auxiliary features. For now, I will stick to the relationship between the keyswitches and the microcontroller. Let's take a look at how this works by looking at one switch.
+The PCB provides the connections between the microcontroller, the keyswitches, and any other auxiliary features. Let's take a look at how this works by looking at one switch.
 
 <img src="/images/single-switch.png" alt="A single switch wired to a microcontroller">
 
-In this example, a single keyswitch is wired to two pins on an Arduino Pro Micro. When the microcontroller wants to read the position of the switch it can set one pin (ex: GP26) to "HIGH" voltage (e.g. 3.3V) and the other pin (ex: GP20) to connect a pull-down resistor. If the switch is not pressed, the pull-down resistor on pin GP20 ensures that the microcontroller reads "LOW." If the switch is pressed, pin GP20 is now directly connected to GP26 and will read "HIGH." This is quite straightforward, but you may notice that if we were to scale this operation as-is, we would need quite a few pins. 
+In this example, a single keyswitch connects to two pins on an Arduino Pro Micro. The microcontroller sets one pin (e.g., GP26) to HIGH voltage (3.3V). The other (GP20) reads the signal, pulled LOW via a resistor unless the switch is pressed. Then, GP20 sees HIGH. This is simple enough, but scaling to a full keyboard would require a lot of pins.
 
 <img src="/images/left-schematic.png" alt="My left PCB schematic using the matrix">
 
-That's where the keyboard matrix comes in. Put simply, the matrix method wires the keyswitches into rows and columns, where each row/column is then assigned a pin on the microcontroller. This allows engineers to use smaller microcontrollers better suited to the job by reducing the necessary number of pins to function. Once in place, the microcontroller sets all rows to pull-down resistors and then sequentially sets each column to "HIGH," scanning the rows of the matrix to check each switch for a keypress. To prevent as many misinputs as possible, each switch is connected to a diode, ensuring no "ghosting" occurs when multiple keys are pressed. Once the matrix schematic is built, we can begin designing the PCB.
+That's why keyboards use a matrix: switches are wired into rows and columns, where each row/column is then assigned a pin on the microcontroller. This dramatically reduces the number of pins needed. Once in place, the microcontroller sequentially sets each column to "HIGH," checking the rows of the matrix for a response. Diodes are used to prevent "ghosting," which can occur when multiple keys are pressed. Once the matrix schematic is built, we can begin designing the PCB.
 
 <img src="/images/left-pcb.png" alt="My completed left PCB">
 
-While there are plentiful online resources to make the design process as easy as possible, (like [Ergogen](https://ergogen.ceoloide.com/) ) I decided to build my design entirely from scratch in KiCad, a popular open-source PCB design application. After following a couple tutorials to understand the workflow of KiCad, I could begin designing. My vision ended up taking a similar shape to Naoki Katahira's [Lily58](https://github.com/kata0510/Lily58) for its similarity to typical mechanical keyboard layouts. My design includes a 6x4 layout with 4 thumb keys and an additional key on the pointer row. Each column's position is strategically adjusted to fit the shape and length of my fingers. This is then duplicated and mirrored for the other side.
+While there are plentiful online resources to make the design process as easy as possible, (like [Ergogen](https://ergogen.ceoloide.com/) ) I decided to build my design entirely from scratch in KiCad, a popular open-source PCB design application. After following a couple tutorials, my keyboard took a similar shape to Naoki Katahira's [Lily58](https://github.com/kata0510/Lily58), including a 6x4 layout with 4 thumb keys and an additional key on the pointer row. Each column's position is strategically adjusted for finger comfort. I built the left side first, and then mirrored my design for the right side.
 
 My designs utilize Scotto Keeb's [ScottoKicad](https://github.com/joe-scotto/scottokeebs/tree/main/Extras/ScottoKicad) library of symbols, 3d models, and footprints for common keyboard components.
 
@@ -59,37 +59,37 @@ My designs utilize Scotto Keeb's [ScottoKicad](https://github.com/joe-scotto/sco
 
 <img src="/images/left-plate.png" alt="My completed left plate">
 
-The plate holds each switch in place before soldering to the PCB by holding them in square holes. To model the plates, I created secondary versions of the PCBs where I replaced each switch with a 14x14mm hole (necessary for Kailh Choc switches) and removed all other components to create an image of the plate.
+The plate holds switches in place for soldering. I modeled the plate by exporting a PCB layout, swapping the switches for 14x14mm cutouts (for Kailh Choc switches), and removing unnecessary elements.
 
 <img src="/images/case-and-plate.png" alt="My completed keyboard design">
 
-This was my first-ever Fusion project, so it took me quite a while to figure out the ropes. It helped me quite a bit to export KiCad's 3D model of my PCB into Fusion to ground my ideas. All I needed to include was on/off switch access, space for a battery within the case, and holes for M2 bolts. While I would make several major changes for my v2 edition, I'm still quite proud of the effective case I was able to build without any help.
+This was my first-ever Fusion project, so it took me quite a while to figure out the ropes. It helped me to export KiCad's 3D model of my PCB into Fusion as a reference. All I needed to include was on/off switch access, space for a battery within the case, and holes for M2 bolts. I'd make several major changes for a second edition, I'm still quite proud of the effective case I was able to build without any help.
 
 #### Side Note: Mounting Styles
 
 <img src="/images/mounting-styles.png" alt="Thomas Baart's mounting styles infographic">
 
-It's very easy to build each component of the keyboard separately without ever considering how they will come together. Thankfully, this [cheat sheet](https://thomasbaart.nl/2019/04/07/cheat-sheet-custom-keyboard-mounting-styles/) from Thomas Baart makes keyboard mounting quite easy to understand. I ended up settling on my own version of the "Integrated Plate" mount where I left the screws visible for a unique DIY look.
+It’s easy to design components separately without planning assembly. Thankfully, this [cheat sheet](https://thomasbaart.nl/2019/04/07/cheat-sheet-custom-keyboard-mounting-styles/) from Thomas Baart makes keyboard mounting quite easy to understand. I settled on my own version of the "Integrated Plate" mount where I left the screws visible for a unique DIY look.
 
 ### Part 3: Ordering and Assembly
 
-The parts I designed would've made for great 3d printing practice but unfortunately I do not have access to one. This meant two things for me: I needed to order them using online services, and they needed to be *perfect*. I did as much simulation and iteration as I could on my design before ordering my parts from [SendCutSend](https://sendcutsend.com/?srsltid=AfmBOoqlO94FP7pZe-f5gklTzPy-zCSYgoJpp9qH5sLmD3wqT4UM_TGb) and [JLCPCB](https://jlcpcb.com/). I sourced the other parts (Keycaps, switches, buttons, etc.) online. There was no one-stop-shop for everything, but I recommend [typeractive](https://typeractive.xyz/) especially for split keyboards.
+I would have loved to 3d print these parts, but unfortunately I do not have access to a printer. I needed to order them using online services, and they needed to be *perfect*. After several rounds of iteration, I ordered my plate from [SendCutSend](https://sendcutsend.com/?srsltid=AfmBOoqlO94FP7pZe-f5gklTzPy-zCSYgoJpp9qH5sLmD3wqT4UM_TGb) and the case/PCB from [JLCPCB](https://jlcpcb.com/). I sourced the other parts (Keycaps, switches, buttons, etc.) online. For split keyboards, I recommend [typeractive](https://typeractive.xyz/).
 
 <img src="/images/parts.JPG" alt="The case, PCB, and plate">
 
-The case is resin and the plate is aluminum (1mm thick, although kailh switches prefer 1.2mm plate thickness)
+The case is resin and the plate is aluminum (Kailh switches prefer 1.2mm plate thickness, but mine is 1mm and it works great).
 
-Once everything arrived, I soldered my components and assembled the case. The final thing to do was code the firmware for my keyboard and I was done!
+Once everything arrived, I soldered my components and assembled the case. The final step was coding the firmware.
 
 ### Part 4: The Code
 
 The standard firmware for keyboards like mine is [ZMK](https://zmk.dev/), an open-source software built to make bluetooth integration as easy as possible. ZMK utilizes a "Device Tree" configuration system that allows me to describe the matrix, microcontroller, pins used, sensors, etc. These configurations are then compiled into the firmware automatically by Github, giving me files to flash onto my keyboard.
 
-ZMK is particularly handy because it comes with many pre-configured layouts requiring little to no adjustments before it can be used. Unfortunately for me, since I designed this board from scratch, I needed to create my own device tree from scratch for my keyboard. This includes defining the split keyboard matrix, which microcontrollers/pins I used, and the keyboard layout I want. Here, I'll go over the most important things I learned.
+While ZMK has many pre-made layouts, building from scratch meant I had to define my own device tree. Here I will cover the config, pins, keyboard matrix, and desired layout.
 
 <img src="/images/zmk-filesystem.png" alt="The ZMK filesystem">
 
-The .defconfig, .conf, and .shield files contain important information telling ZMK how to treate my keyboard. For example, the .defconfig file tells ZMK that my keyboard is named "splitty" and that the left half is "central," meaning the left half communicates with the computer. The "peripheral" right half simply sends its key presses to the left half to be sent to the computer.
+The .defconfig, .conf, and .shield files define core ZMK behavior. For example, .defconfig tells ZMK the keyboard name and which side is central (the left side talks to the computer; the right sends keypresses wirelessly to the left):
 
 ```c
 //Kconfig.defconfig
@@ -111,7 +111,7 @@ config ZMK_SPLIT
 endif
 ```
 
-Since the the matrix and row pin definitions hold true for both halves of the keyboard, I store them in the root splitty.dtsi file. This configuration acts as a base for the keyboard, allowing the left and right .overlay files to complete the picture. Since the left and right sides use different column pins, they each get their own .overlay file, ensuring the firmware knows exactly which parts of the matrix each half covers.
+Shared matrix and row definitions live in the main splitty.dtsi file while left and right overlays adjust column pins for each half:
 
 ```c
 //splitty.dtsi
@@ -152,7 +152,7 @@ Since the the matrix and row pin definitions hold true for both halves of the ke
 };
 ```
 
-Finally, now that I've defined the matrix, pins, and boards I'm using, I can write a .keymap file to tell ZMK what each key corresponds to. For now, my layout contains only two layers: a base layer that corresponds to typing on the keyboard normally, and a lower layer that activates when my layer keys are held.
+Finally, I defined the keymap. My setup includes a base typing layer and a lower layer activated by holding a layer key.
 
 ```c
 //splitty.keymap
@@ -190,7 +190,7 @@ Finally, now that I've defined the matrix, pins, and boards I'm using, I can wri
 };
 ```
 
-When I push these changes to Github, they are automatically compiled using Github Actions, giving me two firmware files for the left and right boards. Once flashed, the boards connect to one another over bluetooth, and they immediately begin pairing.
+When I push these changes to Github, they are automatically compiled using Github Actions, giving me two firmware files for the left and right boards. Once flashed, the boards connect and pair seamlessly.
 
 ## Reflection and Outro
 
@@ -203,4 +203,4 @@ After about a week of adjusting to my new keyboard, I am ecstatic. It's exactly 
 - Screens (and a heavier focus on aesthetics): While I think my keyboard is beautiful, it's definitely a bit rough around the edges. I noticed a lot of builds on online forums include little 128x32 OLED screens to cover up the microcontrollers. I think this is super creative and would be a lot of fun to implement.
 - Magnets: I noticed when carrying these boards around in a bag, they're much more prone to jumbling around and potentially damaging each other than I'd like. For my next build, I think it would be cool to include magnets that allow the halves to stick together for transportation.
 
-Thank you for reading my article on my keyboard build! In the future, I hope to update these articles to be a bit more like guides that you can follow rather than ramblings about my projects. I hope you enjoyed!
+Thanks for reading! In the future, I hope to update these posts into more structured guides. For now, I hope you enjoyed this behind-the-scenes look at my project.
