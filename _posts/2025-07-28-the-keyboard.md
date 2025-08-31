@@ -203,4 +203,4 @@ After about a week of adjusting to my new keyboard, I am ecstatic. It's exactly 
 - Screens (and a heavier focus on aesthetics): While I think my keyboard is beautiful, it's definitely a bit rough around the edges. I noticed a lot of builds on online forums include little 128x32 OLED screens to cover up the microcontrollers. I think this is super creative and would be a lot of fun to implement.
 - Magnets: I noticed when carrying these boards around in a bag, they're much more prone to jumbling around and potentially damaging each other than I'd like. For my next build, I think it would be cool to include magnets that allow the halves to stick together for transportation.
 
-Thanks for reading! In the future, I hope to update these posts into more structured guides. For now, I hope you enjoyed this behind-the-scenes look at my project.
+Thanks for reading! I hope you enjoyed this behind-the-scenes look at my favorite project so far.
